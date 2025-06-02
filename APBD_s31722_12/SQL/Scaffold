@@ -1,0 +1,7 @@
+1.Create BD via string
+2. Use commands to generate code via Scaffold(it will use db as template and will generate a DBContext)
+(dotnet ef dbcontext scaffold Name=ConnectionStrings:Default \
+   Microsoft.EntityFrameworkCore.SqlServer \
+   --context-dir Data \
+   --output-dir Models \
+   --force)
