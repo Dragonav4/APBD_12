@@ -5,5 +5,5 @@ namespace APBD_s31722_12.Interfaces;
 
 public interface ITripService
 {
-    Task<List<TripDto>> GetTrips(int page, int pageSize);
+    Task<TripResponseDto> GetTrips(int page, int pageSize);
 }

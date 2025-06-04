@@ -19,7 +19,7 @@ public class TripService : ITripService
         _masterContext = masterContext;
     }
 
-    public async Task<List<TripDto>> GetTrips(int page = 1, int pageSize = 10)
+    public async Task<TripResponseDto> GetTrips(int page = 1, int pageSize = 10)
     {
         var trips = await _masterContext.Trips
             .OrderBy(t => t.DateFrom)
@@ -27,9 +27,6 @@ public class TripService : ITripService
             .Take(pageSize)
             .Select(t => new TripDto
             {
-                pageNumber = page.ToString(),
-                pageSize = pageSize,
-                allPages = (int)Math.Ceiling((double)_masterContext.Trips.Count() / pageSize),
                 Name = t.Name,
                 Description = t.Description,
                 DateFrom = t.DateFrom.ToString("yyyy/MM/dd"),
@@ -45,7 +42,13 @@ public class TripService : ITripService
                     LastName = c.IdClientNavigation.LastName,
                 }).ToList()
             }).ToListAsync();
-        return trips;
+        return new TripResponseDto()
+        {
+            pageNumber = page.ToString(),
+            pageSize = pageSize,
+            allPages = (int)Math.Ceiling((double)trips.Count / pageSize),
+            trips = trips
+        };
     }
 
     public async Task<TripDto> GetTrip(int tripId)
@@ -54,9 +57,6 @@ public class TripService : ITripService
             .Where(t => t.IdTrip == tripId)
             .Select(t => new TripDto
             {
-                pageNumber = "1",
-                pageSize = 1,
-                allPages = 1,
                 Name = t.Name,
                 Description = t.Description,
                 DateFrom = t.DateFrom.ToString("yyyy/MM/dd"),

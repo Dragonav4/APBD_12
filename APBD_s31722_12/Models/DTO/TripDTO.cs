@@ -1,10 +1,14 @@
 namespace APBD_s31722_12.Models.DTO;
 
-public class TripDto
+public class TripResponseDto
 {
     public string pageNumber { get; set; }
     public int pageSize { get; set; }
     public int allPages { get; set; }
+    public List<TripDto> trips {get;set;}
+}
+public class TripDto
+{
     public string Name { get; set; }
     public string Description { get; set; }
     public string DateFrom { get; set; }
