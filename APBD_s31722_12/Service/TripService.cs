@@ -44,10 +44,10 @@ public class TripService : ITripService
             }).ToListAsync();
         return new TripResponseDto()
         {
-            pageNumber = page.ToString(),
-            pageSize = pageSize,
-            allPages = (int)Math.Ceiling((double)trips.Count / pageSize),
-            trips = trips
+            PageNum = page.ToString(),
+            PageSize = pageSize,
+            AllPages = (int)Math.Ceiling((double)trips.Count / pageSize),
+            Trips = trips
         };
     }
 
